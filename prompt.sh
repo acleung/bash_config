@@ -3,16 +3,11 @@ function __getgitbranch {
  local RED="\001\e[00;31m\002"
  local GREEN="\001\e[00;32m\002"
  local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
- local reddot=""
- local greendot=""
  if [[ ! -z $branch ]]; then
   reddot=`git status 2> /dev/null | grep "Changes not staged for commit" | sed -e 's/.*/*/'`;
- fi
- if [[ ! -z $branch ]]; then
   greendot=`git status 2> /dev/null | grep "Changes to be committed" | sed -e 's/.*/*/'`;
- fi
- if [[ ! -z $branch ]]; then
-  echo -e " ${CYAN}(${branch}${RED}${reddot}${GREEN}${greendot}${CYAN})"
+  arrow=`git status 2> /dev/null | grep "Your branch is ahead of" | sed -e 's/.*/^/'`;
+  echo -e " ${CYAN}(${GREEN}${arrow}${CYAN}${branch}${RED}${reddot}${GREEN}${greendot}${CYAN})"
  fi
 }
 
