@@ -19,8 +19,6 @@ function __getpwd {
   COLORPWD="${COLORPWD}${d}${GRAY}/${WHITE}"
  done
  echo -e "$COLORPWD"
-# local COLORPWD=`dirs +0 | sed -e 's/\//\\e[00;31mhi\/${WHITE}/'`
- #echo -e "${WHITE}$COLORPWD"
 }
 
 function __setprompt
