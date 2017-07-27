@@ -14,11 +14,14 @@ function __getgitbranch {
 function __getpwd {
  local WHITE="\001\e[00;00m\002"
  local GRAY="\001\e[00;90m\002"
- local COLORPWD=" ${WHITE}"
+ local COLORPWD="${WHITE}"
  for d in `dirs +0 | tr "\/" "\n"`; do
   COLORPWD="${COLORPWD}${d}${GRAY}/${WHITE}"
  done
- echo -e "$COLORPWD"
+ if [[ ! -z `dirs +0 | grep --color=never ^\/` ]]; then
+  COLORPWD="${GRAY}/${COLORPWD}"
+ fi
+ echo -e " $COLORPWD"
 }
 
 function __setprompt
