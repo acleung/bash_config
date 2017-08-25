@@ -12,11 +12,11 @@ function __getgitbranch {
 }
 
 function __getpwd {
- local WHITE="\001\e[00;00m\002"
- local GRAY="\001\e[00;90m\002"
+ local WHITE="\0001\e[00;00m\0002"
+ local GRAY="\0001\e[00;90m\0002"
  local COLORPWD="${WHITE}"
- for d in `dirs +0 | tr "\/" "\n"`; do
-  COLORPWD="${COLORPWD}${d}${GRAY}/${WHITE}"
+ for dir in `dirs +0 | tr "\/" "\n"`; do
+  COLORPWD="${COLORPWD}"$dir"${GRAY}/${WHITE}"
  done
  if [[ ! -z `dirs +0 | grep --color=never ^\/` ]]; then
   COLORPWD="${GRAY}/${COLORPWD}"
