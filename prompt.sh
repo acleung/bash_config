@@ -1,7 +1,7 @@
 function __getgitbranch {
- local CYAN="\001\e[00;36m\002"
- local RED="\001\e[00;31m\002"
- local GREEN="\001\e[00;32m\002"
+ local CYAN="\0001\e[00;36m\0002"
+ local RED="\0001\e[00;31m\0002"
+ local GREEN="\0001\e[00;32m\0002"
  local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
  if [[ ! -z $branch ]]; then
   reddot=`git status 2> /dev/null | grep "Changes not staged for commit" | sed -e 's/.*/*/'`;
