@@ -6,9 +6,9 @@ function __getgitbranch {
  local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
  if [[ ! -z $branch ]]; then
   if [[ "$branch" != "(no branch)" ]]; then
-   reddot=`git status 2> /dev/null | grep "Changes not staged for commit" | sed -e 's/.*/*/'`;
-   greendot=`git status 2> /dev/null | grep "Changes to be committed" | sed -e 's/.*/*/'`;
-   arrow=`git status 2> /dev/null | grep "Your branch is ahead of" | sed -e 's/.*/^/'`;
+   reddot=`git status -uno 2> /dev/null | grep "Changes not staged for commit" | sed -e 's/.*/*/'`;
+   greendot=`git status -uno 2> /dev/null | grep "Changes to be committed" | sed -e 's/.*/*/'`;
+   arrow=`git status -uno 2> /dev/null | grep "Your branch is ahead of" | sed -e 's/.*/^/'`;
    echo -e " ${WHITE}(${GREEN}${arrow}${CYAN}${branch}${RED}${reddot}${GREEN}${greendot}${WHITE})"
   else
    echo -e " ${WHITE}(${CYAN}no branch${WHITE})"
