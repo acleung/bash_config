@@ -1,8 +1,16 @@
 function __getgitbranch {
- local WHITE="\0001\e[00;00m\0002"
- local CYAN="\0001\e[00;36m\0002"
- local RED="\0001\e[00;31m\0002"
- local GREEN="\0001\e[00;32m\0002"
+  if [ "$(uname)" == "Darwin" ]; then
+   local WHITE="\033[00;00m"
+   local CYAN="\033[00;36m"
+   local RED="\033[00;31m"
+   local GREEN="\033[00;32m"
+  else
+   local WHITE="\0001\e[00;00m\0002"
+   local CYAN="\0001\e[00;36m\0002"
+   local RED="\0001\e[00;31m\0002"
+   local GREEN="\0001\e[00;32m\0002"
+  fi
+
  local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
  if [[ ! -z $branch ]]; then
   if [[ "$branch" != "(no branch)" ]]; then
@@ -17,8 +25,15 @@ function __getgitbranch {
 }
 
 function __getpwd {
- local WHITE="\0001\e[00;00m\0002"
- local GRAY="\0001\e[00;90m\0002"
+  if [ "$(uname)" == "Darwin" ]; then
+   local WHITE="\033[00;00m"
+   local GRAY="\033[00;90m"
+  else
+   local WHITE="\0001\e[00;00m\0002"
+   local GRAY="\0001\e[00;90m\0002"
+  fi
+
+
  local COLORPWD="${WHITE}"
  for dir in `dirs +0 | tr "\/" "\n"`; do
   COLORPWD="${COLORPWD}"$dir"${GRAY}/${WHITE}"
@@ -38,7 +53,12 @@ function __setprompt
   local   CYAN="\[\033[00;36m\]"
   local   GRAY="\[\033[00;90m\]"
   local YELLOW="\[\033[1;33m\]"
-  local hn=`hostname -a | tr -d ' '`
+
+  if [ "$(uname)" == "Darwin" ]; then
+   local hn="macbook"
+  else
+   local hn=`hostname -a | tr -d ' '`
+  fi
   local me=`whoami`
 
   # LINE 1 [ PWD ]
